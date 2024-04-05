@@ -13,7 +13,7 @@ class Dictionary:
     root=Node()
 
 
-    def insert(self,word):
+    def insert(self,word):    #O(L) L=Length Of String
         word=word.lower()
         temp=self.root
         for i in word:
@@ -40,10 +40,13 @@ class Dictionary:
         return temp.eow==True
     
     def startWith(self,prefix):
-        
+        prefix=prefix.lower()
         temp=self.root
         for i in prefix:
             idx=ord(i)-ord('a')
+            if(temp.children[idx]==None):
+                print(prefix,"Not Exitst")
+                return
             temp=temp.children[idx]
         self.printAllWordOfPrefix(prefix,temp,"")
     
@@ -57,6 +60,9 @@ class Dictionary:
                 self.printAllWordOfPrefix(prefix,curr.children[i],str+chr(ord("a")+i))
 
     def printAllWord(self,root,str):
+        if root==None:
+            return 
+        
         if root.eow==True:
             print(str)
             
